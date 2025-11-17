@@ -36,13 +36,13 @@ const defaultExclusions = [
 ];
 
 const config = {
-  documents: [...values.documents, ...defaultExclusions],
+  documents: [...documentPatterns, ...defaultExclusions],
   output: values.output,
 };
 
 console.log("🔍 Generating persisted query manifest...");
 console.log(`📁 Working directory: ${workingDir}`);
-console.log(`📄 Document patterns: ${values.documents.join(", ")}`);
+console.log(`📄 Document patterns: ${documentPatterns.join(", ")}`);
 console.log(`💾 Output file: ${values.output}\n`);
 
 try {
