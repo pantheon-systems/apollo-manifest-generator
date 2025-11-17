@@ -1,4 +1,4 @@
-# @your-org/apollo-manifest-generator
+# @pantheon-systems/apollo-manifest-generator
 
 Wrapper for Apollo persisted query manifest generation.
 
@@ -49,7 +49,7 @@ generate-apollo-manifest \
 Clone and test locally:
 
 ```bash
-git clone https://github.com/your-org/apollo-manifest-generator.git
+git clone https://github.com/pantheon-systems/apollo-manifest-generator.git
 cd apollo-manifest-generator
 npm link
 generate-apollo-manifest --help
