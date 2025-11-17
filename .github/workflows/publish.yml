@@ -1,0 +1,65 @@
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Update npm to latest
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build bundle
+        run: npm run build
+
+      - name: Determine NPM tag
+        id: npm-tag
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/v}"
+          echo "GITHUB_REF=$GITHUB_REF"
+          echo "Extracted VERSION=$VERSION"
+
+          # Auto-detect the right npm tag based on version
+          # Publish alpha and beta as "latest" until stable 1.0 release
+          if [[ "$VERSION" == *"dev"* ]]; then
+            TAG="dev"
+          elif [[ "$VERSION" == *"beta"* ]]; then
+            TAG="latest"
+          elif [[ "$VERSION" == *"alpha"* ]]; then
+            TAG="latest"
+          elif [[ "$VERSION" == *"rc"* ]]; then
+            TAG="next"
+          elif [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            TAG="latest"
+          else
+            TAG="dev"
+          fi
+
+          echo "Determined TAG=$TAG"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "📦 Publishing version $VERSION with npm tag '$TAG'"
+
+      - name: Debug outputs
+        run: |
+          echo "Version output: ${{ steps.npm-tag.outputs.version }}"
+          echo "Tag output: ${{ steps.npm-tag.outputs.tag }}"
+
+      - name: Publish to NPM
+        run: npm publish --tag "${{ steps.npm-tag.outputs.tag }}" --access public
