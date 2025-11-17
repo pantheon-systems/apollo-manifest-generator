@@ -1,8 +1,26 @@
 {
+  "name": "@pantheon-systems/apollo-persisted-query-generator",
+  "version": "1.0.0",
+  "exports": "./mod.ts",
   "tasks": {
-    "dev": "deno run -A ./cli/cli.ts"
+    "generate": "deno run -A mod.ts"
   },
-  "compilerOptions": {
-    "lib": ["deno.ns", "deno.unstable", "dom"]
+  "imports": {
+    "@std/cli": "jsr:@std/cli@^1.0.0",
+    "@std/path": "jsr:@std/path@^1.0.0",
+    "@std/fs": "jsr:@std/fs@^1.0.0"
+  },
+  "lint": {
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "semiColons": true,
+    "singleQuote": false,
+    "proseWrap": "preserve"
   }
 }
