@@ -1,0 +1,12 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: apollo-manifest-generator
+  description: A NPM wrapper for `@apollo/generate-persisted-query-manifest`.
+  annotations:
+    github.com/project-slug: pantheon-systems/apollo-manifest-generator
+spec:
+  type: service
+  lifecycle: experimental
+  owner: routing-squad
