@@ -1,3 +1,3 @@
-# https://help.github.com/en/articles/about-code-owners
-
-- @pantheon-systems/routing-squad
+# Managed by github-terraform — do not edit manually
+* @pantheon-systems/platform-edge-routing
+.github/CODEOWNERS @pantheon-systems/delivery-engineering
